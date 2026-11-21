@@ -69,6 +69,20 @@ describe('EmployeeListComponent', () => {
     expect(component.page()).toBe(1);
   });
 
+  it('shows amber Edit and red Delete notifications', () => {
+    component.showActionNotification('edit', employees[0]);
+    fixture.detectChanges();
+    let notification = fixture.nativeElement.querySelector('[role="status"]') as HTMLElement;
+    expect(notification.textContent).toContain('Aksi Edit');
+    expect(notification.classList.contains('bg-amber-100')).toBe(true);
+
+    component.showActionNotification('delete', employees[0]);
+    fixture.detectChanges();
+    notification = fixture.nativeElement.querySelector('[role="status"]') as HTMLElement;
+    expect(notification.textContent).toContain('Aksi Delete');
+    expect(notification.classList.contains('bg-red-100')).toBe(true);
+  });
+
   it('restores a selected group after its options are loaded', () => {
     const supportEmployee = { ...employees[0], group: 'IT Support' };
     component.employees.set([]);
