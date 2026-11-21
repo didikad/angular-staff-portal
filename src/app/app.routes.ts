@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/login.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { AddEmployeeComponent } from './features/employees/add-employee.component';
 import { EmployeeListComponent } from './features/employees/employee-list.component';
 
 export const routes: Routes = [
@@ -10,9 +11,11 @@ export const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'employees' },
+      { path: 'employees/add', component: AddEmployeeComponent },
       { path: 'employees', component: EmployeeListComponent },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: '**', redirectTo: 'dashboard' },
 ];
+
