@@ -10,6 +10,9 @@
     <nav class="flex-1 px-3 py-6" aria-label="Navigasi utama">
       <a routerLink="/dashboard/employees" routerLinkActive="bg-amber-400 text-red-950" ariaCurrentWhenActive="page" (click)="closeSidebar()" class="block rounded px-3 py-3 text-sm text-white hover:bg-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">Karyawan</a>
     </nav>
+    <div class="mt-auto border-t border-red-800 p-3">
+      <button type="button" (click)="logout()" class="w-full rounded px-3 py-3 text-left text-sm text-white hover:bg-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">Logout</button>
+    </div>
   </aside>
 
   <div class="min-w-0 flex-1">

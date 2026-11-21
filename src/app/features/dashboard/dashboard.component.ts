@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,6 +8,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
+  private readonly router = inject(Router);
   sidebarOpen = false;
 
   toggleSidebar(): void {
@@ -16,5 +17,10 @@ export class DashboardComponent {
 
   closeSidebar(): void {
     this.sidebarOpen = false;
+  }
+
+  logout(): void {
+    this.closeSidebar();
+    void this.router.navigate(['/login']);
   }
 }
