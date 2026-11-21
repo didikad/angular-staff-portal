@@ -60,7 +60,7 @@
           <tbody>
             @for (employee of pageEmployees(); track employee.username) {
               <tr class="border-t border-stone-200 hover:bg-stone-50">
-                <td class="px-5 py-4"><span class="font-medium text-red-900">{{ employee.firstName }} {{ employee.lastName }}</span></td>
+                <td class="px-5 py-4"><a class="font-medium text-red-900 hover:underline" [routerLink]="['/dashboard/employees', employee.username]">{{ employee.firstName }} {{ employee.lastName }}</a></td>
                 <td class="px-4 py-4 text-slate-700">{{ employee.username }}</td>
                 <td class="px-4 py-4 text-slate-700">{{ employee.email }}</td>
                 <td class="px-4 py-4 text-slate-700">{{ employee.group }}</td>
@@ -90,6 +90,7 @@
     }
   </section>
 </section>
+
 
 
 
