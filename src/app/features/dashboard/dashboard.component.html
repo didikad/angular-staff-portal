@@ -2,64 +2,27 @@
 
 <div class="flex min-h-screen bg-stone-100 text-slate-900">
   @if (sidebarOpen) {
-    <button
-      class="fixed inset-0 z-10 bg-black/40 md:hidden"
-      type="button"
-      aria-label="Tutup sidebar"
-      (click)="closeSidebar()"
-    ></button>
+    <button class="fixed inset-0 z-10 bg-black/40 md:hidden" type="button" aria-label="Tutup sidebar" (click)="closeSidebar()"></button>
   }
 
-  <aside
-    id="dashboard-sidebar"
-    [class.-translate-x-full]="!sidebarOpen"
-    class="fixed inset-y-0 left-0 z-20 flex h-screen w-64 flex-col bg-red-900 text-white transition-transform md:sticky md:top-0 md:translate-x-0"
-    aria-label="Sidebar"
-  >
-    <div class="border-b border-red-800 px-6 py-5">
-      <h1 class="text-lg font-semibold">Employee Management</h1>
-    </div>
-
+  <aside id="dashboard-sidebar" [class.-translate-x-full]="!sidebarOpen" class="fixed inset-y-0 left-0 z-20 flex h-screen w-64 flex-col bg-red-900 text-white transition-transform md:sticky md:top-0 md:translate-x-0" aria-label="Sidebar">
+    <div class="border-b border-red-800 px-6 py-5"><h1 class="text-lg font-semibold">Employee Management</h1></div>
     <nav class="flex-1 px-3 py-6" aria-label="Navigasi utama">
-      <a
-        routerLink="/dashboard"
-        routerLinkActive="bg-amber-400 text-red-950"
-        [routerLinkActiveOptions]="{ exact: true }"
-        ariaCurrentWhenActive="page"
-        (click)="closeSidebar()"
-        class="block rounded px-3 py-3 text-sm text-white hover:bg-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
-      >
-        Dashboard
-      </a>
+      <a routerLink="/dashboard/employees" routerLinkActive="bg-amber-400 text-red-950" ariaCurrentWhenActive="page" (click)="closeSidebar()" class="block rounded px-3 py-3 text-sm text-white hover:bg-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">Karyawan</a>
     </nav>
   </aside>
 
   <div class="min-w-0 flex-1">
     <header class="flex h-16 items-center justify-between border-b border-stone-200 bg-white px-4 sm:px-6">
       <div class="flex items-center gap-3">
-        <button
-          class="flex h-11 w-11 flex-col items-center justify-center gap-1 rounded border border-stone-300 bg-white md:hidden"
-          type="button"
-          (click)="toggleSidebar()"
-          [attr.aria-expanded]="sidebarOpen"
-          aria-controls="dashboard-sidebar"
-          [attr.aria-label]="sidebarOpen ? 'Tutup navigasi' : 'Buka navigasi'"
-        >
-          <span class="h-0.5 w-5 bg-red-900"></span>
-          <span class="h-0.5 w-5 bg-red-900"></span>
-          <span class="h-0.5 w-5 bg-red-900"></span>
+        <button class="flex h-11 w-11 flex-col items-center justify-center gap-1 rounded border border-stone-300 bg-white md:hidden" type="button" (click)="toggleSidebar()" [attr.aria-expanded]="sidebarOpen" aria-controls="dashboard-sidebar" [attr.aria-label]="sidebarOpen ? 'Tutup navigasi' : 'Buka navigasi'">
+          <span class="h-0.5 w-5 bg-red-900"></span><span class="h-0.5 w-5 bg-red-900"></span><span class="h-0.5 w-5 bg-red-900"></span>
         </button>
-        <p class="text-sm font-medium text-red-900">Dashboard</p>
+        <p class="text-sm font-medium text-red-900">Employee Management</p>
       </div>
       <span class="text-sm text-slate-700">Admin</span>
     </header>
 
-    <main id="dashboard-content" class="p-5 sm:p-8" tabindex="-1">
-      <h2 class="text-2xl font-semibold text-red-900">Dashboard</h2>
-      <p class="mt-2 text-sm text-slate-700">Area konten dashboard.</p>
-      <router-outlet />
-    </main>
+    <main id="dashboard-content" class="p-5 sm:p-8" tabindex="-1"><router-outlet /></main>
   </div>
 </div>
-
-
