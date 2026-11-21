@@ -31,12 +31,13 @@ describe('EmployeeListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('loads employees and renders the Detail link for each row', () => {
+  it('loads employees and renders Detail, Edit, and Delete actions for each row', () => {
     const element = fixture.nativeElement as HTMLElement;
     expect(component.loading()).toBe(false);
     expect(component.employees()).toHaveLength(3);
     expect(element.querySelectorAll('thead th')).toHaveLength(7);
     expect(element.querySelectorAll('tbody a')).toHaveLength(3);
+    expect(element.querySelectorAll('tbody button')).toHaveLength(6);
     expect(element.querySelector('tbody a')?.textContent?.trim()).toBe('Detail');
   });
 

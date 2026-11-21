@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EmployeeService } from '../../api/employee.service';
 import { Employee } from '../../models/employee.model';
 
+type EmployeeAction = 'edit' | 'delete';
 type SortColumn = 'firstName' | 'username' | 'group' | 'status' | 'basicSalary';
 
 @Component({
@@ -19,6 +20,7 @@ export class EmployeeListComponent {
   readonly employees = signal<Employee[]>([]);
   readonly loading = signal(true);
   readonly errorMessage = signal('');
+  readonly notification = signal<{ type: EmployeeAction; message: string } | null>(null);
   readonly searchText = signal('');
   readonly selectedGroup = signal('');
   readonly selectedStatus = signal('');
@@ -144,6 +146,18 @@ export class EmployeeListComponent {
       queryParams: this.listQueryParams(),
       replaceUrl: true,
     });
+  }
+
+  showActionNotification(action: EmployeeAction, employee: Employee): void {
+    const name = `${employee.firstName} ${employee.lastName}`;
+    const message = action === 'edit'
+      ? `Aksi Edit untuk ${name} belum memiliki halaman edit.`
+      : `Aksi Delete untuk ${name} hanya contoh dan tidak menghapus data.`;
+    this.notification.set({ type: action, message });
+  }
+
+  dismissNotification(): void {
+    this.notification.set(null);
   }
 
   formatSalary(value: number): string {
