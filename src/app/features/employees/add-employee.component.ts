@@ -16,7 +16,7 @@ export class AddEmployeeComponent {
   private readonly router = inject(Router);
 
   readonly groups = ['Engineering', 'Human Resources', 'Finance', 'Marketing', 'Sales', 'IT Support', 'Operations', 'Product', 'Legal', 'Customer Success'];
-  readonly today = new Date().toISOString().slice(0, 10);
+  readonly maxBirthDate = new Date(Date.now() - new Date().getTimezoneOffset() * 60_000).toISOString().slice(0, 16);
   groupSearch = '';
   submitted = false;
   readonly form = this.formBuilder.nonNullable.group({
@@ -50,7 +50,7 @@ export class AddEmployeeComponent {
       const value = this.form.getRawValue();
       const employee: Employee = {
         ...value,
-        birthDate: new Date(`${value.birthDate}T00:00:00`).toISOString(),
+        birthDate: new Date(value.birthDate).toISOString(),
         basicSalary: Number(value.basicSalary),
         status: value.status as Employee['status'],
         description: new Date(value.description).toISOString(),

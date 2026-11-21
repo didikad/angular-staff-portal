@@ -24,7 +24,7 @@
         @if (hasError('lastName')) { <small class="text-red-800">Nama belakang wajib diisi.</small> }
       </label>
       <label class="grid gap-1.5 text-sm font-medium">Tanggal lahir
-        <input type="date" [max]="today" formControlName="birthDate" class="h-11 rounded border border-stone-300 px-3 font-normal focus-visible:outline-2 focus-visible:outline-red-800" />
+        <input type="datetime-local" [max]="maxBirthDate" formControlName="birthDate" class="h-11 rounded border border-stone-300 px-3 font-normal focus-visible:outline-2 focus-visible:outline-red-800" />
         @if (hasError('birthDate')) { <small class="text-red-800">Tanggal lahir wajib diisi.</small> }
       </label>
       <label class="grid gap-1.5 text-sm font-medium">Gaji pokok
