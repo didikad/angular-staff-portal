@@ -1,59 +1,55 @@
-# TechnicalTestAngular
+# Employee Management Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.30.
+Aplikasi dashboard employee management menggunakan Angular 21 dan Tailwind CSS. Data employee dan akun login menggunakan file JSON lokal sebagai API dummy.
 
-## Development server
+## Persyaratan
 
-To start a local development server, run:
+- Node.js `20.19.x`, `22.12.x`, atau `24.x`.
+- npm, yang disertakan bersama Node.js.
 
-```bash
-ng serve
-```
+Rentang Node.js tersebut mengikuti [tabel kompatibilitas Angular](https://angular.dev/reference/versions) untuk Angular 21.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Periksa versi yang terpasang:
 
 ```bash
-ng generate component component-name
+node --version
+npm --version
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Clone dan jalankan aplikasi
 
 ```bash
-ng generate --help
+git clone https://github.com/didikad/angular-staff-portal.git
+cd angular-staff-portal
+npm install
+npm start
 ```
 
-## Building
+Buka [http://localhost:4200](http://localhost:4200) setelah server berjalan. Server development akan memuat ulang aplikasi saat file sumber berubah.
 
-To build the project run:
+## Akun login untuk testing
+
+Gunakan akun demo berikut pada halaman login:
+
+```text
+Username: admin
+Password: admin123
+```
+
+Data akun berada di `public/api/auth.json`. Employee dummy berada di `public/api/employees.json`. Keduanya merupakan data statis untuk kebutuhan latihan, bukan autentikasi backend produksi.
+
+## Perintah tambahan
+
+Jalankan unit test:
 
 ```bash
-ng build
+npm test -- --watch=false
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Buat production build:
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Hasil build berada di folder `dist/`.
