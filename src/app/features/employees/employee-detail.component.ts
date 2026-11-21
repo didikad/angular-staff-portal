@@ -12,6 +12,7 @@ import { Employee } from '../../models/employee.model';
 export class EmployeeDetailComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly employeeService = inject(EmployeeService);
+  readonly returnQueryParams = this.route.snapshot.queryParams;
   readonly employee = signal<Employee | null>(null);
   readonly loading = signal(true);
 

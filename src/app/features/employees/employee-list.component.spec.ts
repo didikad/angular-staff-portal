@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { EmployeeService } from '../../api/employee.service';
 import { Employee } from '../../models/employee.model';
@@ -14,6 +14,7 @@ const employees: Employee[] = [
 describe('EmployeeListComponent', () => {
   let fixture: ReturnType<typeof TestBed.createComponent<EmployeeListComponent>>;
   let component: EmployeeListComponent;
+  let router: Router;
   const employeeService = { getEmployees: vi.fn(() => of(employees)) };
 
   beforeEach(async () => {
@@ -23,12 +24,14 @@ describe('EmployeeListComponent', () => {
       providers: [provideRouter([]), { provide: EmployeeService, useValue: employeeService }],
     }).compileComponents();
 
+    router = TestBed.inject(Router);
+    vi.spyOn(router, 'navigate').mockResolvedValue(true);
     fixture = TestBed.createComponent(EmployeeListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('loads employees and renders the Detail action for each row', () => {
+  it('loads employees and renders the Detail link for each row', () => {
     const element = fixture.nativeElement as HTMLElement;
     expect(component.loading()).toBe(false);
     expect(component.employees()).toHaveLength(3);
@@ -63,6 +66,43 @@ describe('EmployeeListComponent', () => {
     expect(component.page()).toBe(2);
     component.changePage(1);
     expect(component.page()).toBe(1);
+  });
+
+  it('restores a selected group after its options are loaded', () => {
+    const supportEmployee = { ...employees[0], group: 'IT Support' };
+    component.employees.set([]);
+    component.updateGroup('IT Support');
+    fixture.detectChanges();
+
+    component.employees.set([supportEmployee]);
+    fixture.detectChanges();
+
+    const groupSelect = (fixture.nativeElement as HTMLElement).querySelectorAll('select')[0] as HTMLSelectElement;
+    expect(groupSelect.value).toBe('IT Support');
+  });
+
+  it('writes the selected group to the current URL using replaceUrl', () => {
+    component.updateGroup('IT Support');
+
+    expect(router.navigate).toHaveBeenCalledWith([], expect.objectContaining({
+      queryParams: expect.objectContaining({ group: 'IT Support' }),
+      replaceUrl: true,
+    }));
+  });
+
+  it('keeps current search filters in detail navigation query parameters', () => {
+    component.updateSearch('Citra');
+    component.updateGroup('Engineering');
+    component.updateStatus('Active');
+    component.updatePageSize('25');
+    component.changePage(1);
+
+    expect(component.listQueryParams()).toMatchObject({
+      search: 'Citra',
+      group: 'Engineering',
+      status: 'Active',
+      pageSize: 25,
+    });
   });
 
   it('resets to the first page when a filter changes', () => {

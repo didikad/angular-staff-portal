@@ -20,7 +20,12 @@ const employee: Employee = {
 describe('EmployeeDetailComponent', () => {
   let fixture: ReturnType<typeof TestBed.createComponent<EmployeeDetailComponent>>;
   const employeeService = { getEmployees: vi.fn(() => of([employee])) };
-  const route = { snapshot: { paramMap: { get: vi.fn(() => employee.username) } } };
+  const route = {
+  snapshot: {
+    paramMap: { get: vi.fn(() => employee.username) },
+    queryParams: { search: 'Alya', group: 'Engineering', status: 'Active', page: '2' },
+  },
+};
 
   beforeEach(async () => {
     employeeService.getEmployees.mockReturnValue(of([employee]));
@@ -40,6 +45,7 @@ describe('EmployeeDetailComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.componentInstance.employee()).toEqual(employee);
+    expect(fixture.componentInstance.returnQueryParams).toEqual(route.snapshot.queryParams);
     expect((fixture.nativeElement as HTMLElement).textContent).toContain('Alya Pratama');
     expect((fixture.nativeElement as HTMLElement).textContent).toContain('alya@example.test');
   });
